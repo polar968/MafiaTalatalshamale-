@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mafia Cafe Talat-alshamale</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header><div class="brand">🎭 Mafia Cafe Talat-alshamale</div><div id="roleBadge" class="badge">لاعب</div></header>
+  <main id="login" class="screen">
+    <section class="card login-card">
+      <h1>مرحباً بك 👋</h1><p>سجّل دخولك بالاسم ورقم الهاتف</p>
+      <input id="name" placeholder="الاسم">
+      <input id="phone" inputmode="tel" placeholder="رقم الهاتف">
+      <button onclick="login()">دخول</button>
+    </section>
+  </main>
+  <main id="home" class="screen hidden">
+    <section class="hero"><h1>🎭 Mafia Cafe</h1><p>تنظيم اللعبة الورقية وإدارة الجلسات</p></section>
+    <div class="grid">
+      <button class="tile" onclick="show('sessions')">📅<b>الجلسات</b></button>
+      <button class="tile" onclick="show('cards')">🃏<b>موزع الكروت</b></button>
+      <button class="tile" onclick="show('chat')">💬<b>الشات</b></button>
+      <button class="tile" onclick="show('rules')">📖<b>القوانين</b></button>
+      <button class="tile" onclick="show('games')">📜<b>سجل الألعاب</b></button>
+      <button class="tile admin-only" onclick="show('money')">💰<b>الأرباح</b></button>
+    </div>
+  </main>
+
+  <main id="cards" class="screen hidden">
+    <button class="back" onclick="show('home')">← الرئيسية</button>
+    <section class="card">
+      <h2>🃏 إعداد الكروت</h2>
+      <p>حدد الكروت الموجودة فعلياً عندك. لن يقترح التطبيق أي كرت غير متوفر.</p>
+      <div id="roles"></div>
+      <button onclick="addRole()">＋ إضافة كرت</button>
+      <hr>
+      <label>عدد اللاعبين</label><input id="players" type="number" min="1" value="13">
+      <button onclick="calculate()">حساب التوزيع</button>
+      <div id="distribution"></div>
+    </section>
+  </main>
+
+  <main id="sessions" class="screen hidden">
+    <button class="back" onclick="show('home')">← الرئيسية</button>
+    <section class="card"><h2>📅 الجلسات</h2><p>لا توجد جلسات بعد.</p><button>＋ إنشاء جلسة</button></section>
+  </main>
+  <main id="chat" class="screen hidden">
+    <button class="back" onclick="show('home')">← الرئيسية</button>
+    <section class="card"><h2>💬 الشات</h2><div class="tabs"><button>👨 الشباب</button><button>👩 الفتيات</button></div><p>سيتم ربط الشات بالجلسات في النسخة المتصلة.</p></section>
+  </main>
+  <main id="rules" class="screen hidden"><button class="back" onclick="show('home')">← الرئيسية</button><section class="card"><h2>📖 القوانين</h2><p>أضف قوانين Mafia الخاصة بالكافيه من لوحة الإدارة.</p></section></main>
+  <main id="games" class="screen hidden"><button class="back" onclick="show('home')">← الرئيسية</button><section class="card"><h2>📜 سجل الألعاب</h2><p>سيتم حفظ نتائج كل لعبة هنا.</p></section></main>
+  <main id="money" class="screen hidden"><button class="back" onclick="show('home')">← الرئيسية</button><section class="card"><h2>💰 الأرباح</h2><p>الإيرادات والمصاريف وصافي الربح لكل لعبة.</p><div class="stat">صافي الربح: <b>0.00 د.أ</b></div></section></main>
+</div>
+<script src="app.js"></script>
+</body></html>
