@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mafia Cafe Talat-alshamale</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">🎭 Mafia Cafe Talat-alshamale</div>
+    <div id="roleBadge" class="badge">زائر</div>
+  </header>
+
+  <main id="login" class="screen">
+    <section class="card login-card">
+      <h1>مرحباً بك 👋</h1>
+      <p>سجّل دخولك واختر الفئة الخاصة بك</p>
+      <input id="name" placeholder="الاسم" autocomplete="name">
+      <input id="phone" inputmode="tel" placeholder="رقم الهاتف" autocomplete="tel">
+
+      <div class="gender-title">اختر الفئة</div>
+      <div class="gender-grid">
+        <button type="button" class="gender-btn" data-gender="male" onclick="selectGender('male')">👨<span>شباب</span></button>
+        <button type="button" class="gender-btn" data-gender="female" onclick="selectGender('female')">👩<span>فتيات</span></button>
+      </div>
+
+      <button class="primary" onclick="login()">دخول كلاعب</button>
+      <button class="secondary" onclick="showAdminLogin()">🔐 دخول الإدارة</button>
+    </section>
+  </main>
+
+  <main id="adminLogin" class="screen hidden">
+    <button class="back" onclick="show('login')">← رجوع</button>
+    <section class="card login-card">
+      <h2>🔐 دخول الإدارة</h2>
+      <p>هذه الواجهة مخصصة للإدارة فقط.</p>
+      <input id="adminName" placeholder="اسم الإدارة">
+      <input id="adminPhone" inputmode="tel" placeholder="رقم الهاتف">
+      <button class="primary" onclick="adminLogin()">دخول الإدارة</button>
+    </section>
+  </main>
+
+  <main id="home" class="screen hidden">
+    <section class="hero">
+      <div id="welcome"></div>
+      <p id="genderNotice"></p>
+    </section>
+    <div class="grid">
+      <button class="tile" onclick="show('sessions')">📅<b>الجلسات</b></button>
+      <button class="tile" onclick="show('cards')">🃏<b>موزع الكروت</b></button>
+      <button class="tile" onclick="openMyChat()">💬<b id="chatTileTitle">الشات</b></button>
+      <button class="tile" onclick="show('rules')">📖<b>القوانين</b></button>
+      <button class="tile" onclick="show('games')">📜<b>سجل الألعاب</b></button>
+      <button class="tile admin-only hidden" onclick="show('money')">💰<b>الأرباح</b></button>
+      <button class="tile admin-only hidden" onclick="show('adminPanel')">⚙️<b>لوحة الإدارة</b></button>
+    </div>
+  </main>
+
+  <main id="cards" class="screen hidden">
+    <button class="back" onclick="show('home')">← الرئيسية</button>
+    <section class="card">
+      <h2>🃏 إعداد الكروت</h2>
+      <p>حدد الكروت الموجودة فعلياً عندك.</p>
+      <div id="roles"></div>
+      <button onclick="addRole()">＋ إضافة كرت</button>
+      <hr>
+      <label>عدد اللاعبين</label><input id="players" type="number" min="1" value="13">
+      <button onclick="calculate()">حساب التوزيع</button>
+      <div id="distribution"></div>
+    </section>
+  </main>
+
+  <main id="sessions" class="screen hidden">
+    <button class="back" onclick="show('home')">← الرئيسية</button>
+    <section class="card"><h2>📅 الجلسات</h2><p>لا توجد جلسات بعد.</p><button>＋ إنشاء جلسة</button></section>
+  </main>
+
+  <main id="chat" class="screen hidden">
+    <button class="back" onclick="show('home')">← الرئيسية</button>
+    <section class="card">
+      <h2 id="chatTitle">💬 الشات</h2>
+      <div id="chatPrivacy" class="privacy-note"></div>
+      <div id="chatMessages" class="chat-box"></div>
+      <div class="chat-send"><input id="chatInput" placeholder="اكتب رسالتك..."><button onclick="sendMessage()">إرسال</button></div>
+    </section>
+  </main>
+
+  <main id="rules" class="screen hidden"><button class="back" onclick="show('home')">← الرئيسية</button><section class="card"><h2>📖 القوانين</h2><p>قوانين Mafia الخاصة بالكافيه.</p></section></main>
+  <main id="games" class="screen hidden"><button class="back" onclick="show('home')">← الرئيسية</button><section class="card"><h2>📜 سجل الألعاب</h2><p>سيتم حفظ نتائج كل لعبة هنا.</p></section></main>
+  <main id="money" class="screen hidden"><button class="back" onclick="show('home')">← الرئيسية</button><section class="card"><h2>💰 الأرباح</h2><p>الإيرادات والمصاريف وصافي الربح لكل لعبة.</p><div class="stat">صافي الربح: <b>0.00 د.أ</b></div></section></main>
+
+  <main id="adminPanel" class="screen hidden">
+    <button class="back" onclick="show('home')">← الرئيسية</button>
+    <section class="card">
+      <h2>⚙️ لوحة الإدارة</h2>
+      <div class="admin-warning">🔒 معلومات اللاعبين والإعدادات الإدارية لا تظهر في واجهة اللاعبين.</div>
+      <div class="admin-stat"><span>المستخدم الحالي</span><b id="adminCurrent">الإدارة</b></div>
+      <div class="admin-stat"><span>شات الشباب</span><b>منفصل</b></div>
+      <div class="admin-stat"><span>شات الفتيات</span><b>منفصل</b></div>
+      <button onclick="logout()">تسجيل خروج</button>
+    </section>
+  </main>
+</div>
+<script src="app.js"></script>
+</body></html>
